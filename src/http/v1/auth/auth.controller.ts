@@ -41,7 +41,7 @@ AuthController.post(
   }
 );
 
-AuthController.get("/api/auth/sign-in/google", async () => {
+AuthController.post("/api/auth/sign-in/social", async () => {
   const data = await auth.api.signInSocial({ body: { provider: "google" } });
   console.log("data :", data);
 });

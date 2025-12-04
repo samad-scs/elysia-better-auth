@@ -4,6 +4,7 @@ import { Elysia } from "elysia";
 import { scalarConfig } from "./configs/scalar.config";
 import { HealthController } from "./http/health/health.controller";
 import { httpV1 } from "./http/v1";
+import { betterAuthMiddleware } from "./lib/auth";
 
 // ** Initialization
 const app = new Elysia()
@@ -21,10 +22,12 @@ const app = new Elysia()
       allowedHeaders: ["Content-Type", "Authorization"],
     })
   )
+  .use(betterAuthMiddleware)
   .listen(3000);
 
 // ** Controllers
 app.get("/", () => "Hello Elysia");
+app.get("/redirect", ({ redirect }) => redirect("/"));
 app.use(HealthController);
 app.use(httpV1);
 
