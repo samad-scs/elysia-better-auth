@@ -15,7 +15,7 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      prompt: "select_account",
+      prompt: "select_account consent",
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
@@ -30,9 +30,7 @@ export const auth = betterAuth({
     window: 60 * 60 * 1000,
   },
   appName: "Elysia Get Started",
-  plugins: [
-    oneTap(), // Add the One Tap server plugin
-  ],
+  plugins: [oneTap({})],
 });
 
 export const betterAuthMiddleware = new Elysia({ name: "better-auth" })
