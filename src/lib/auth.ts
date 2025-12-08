@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { oneTap } from "better-auth/plugins";
 
 import { Elysia } from "elysia";
 import { prisma } from "./prisma";
@@ -10,6 +11,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    requireEmailVerification: true,
   },
   socialProviders: {
     google: {
@@ -28,6 +30,9 @@ export const auth = betterAuth({
     window: 60 * 60 * 1000,
   },
   appName: "Elysia Get Started",
+  plugins: [
+    oneTap(), // Add the One Tap server plugin
+  ],
 });
 
 export const betterAuthMiddleware = new Elysia({ name: "better-auth" })
