@@ -27,7 +27,6 @@ const app = new Elysia()
 
 // ** Controllers
 app.get("/", () => "Hello Elysia");
-app.get("/redirect", ({ redirect }) => redirect("/"));
 app.use(HealthController);
 app.use(httpV1);
 

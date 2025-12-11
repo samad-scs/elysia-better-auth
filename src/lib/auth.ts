@@ -1,9 +1,11 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { oneTap } from "better-auth/plugins";
+import { oneTap, openAPI } from "better-auth/plugins";
 
 import { Elysia } from "elysia";
 import { prisma } from "./prisma";
+import { fromTypes } from "@elysiajs/openapi";
+import { scalarConfig } from "@/configs/scalar.config";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -30,7 +32,12 @@ export const auth = betterAuth({
     window: 60 * 60 * 1000,
   },
   appName: "Elysia Get Started",
-  plugins: [oneTap({})],
+  plugins: [
+    openAPI({
+      theme: "bluePlanet",
+    }),
+    oneTap({}),
+  ],
 });
 
 export const betterAuthMiddleware = new Elysia({ name: "better-auth" })
